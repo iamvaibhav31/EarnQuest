@@ -3,10 +3,6 @@ import { Input } from "@/components/ui/input";
 
 
 export default async function ExploreOffersPage() {
-
-  console.log("Rendering Explore Offers Page");
-
-
   return (
     <>
       {/* Title and Search */}

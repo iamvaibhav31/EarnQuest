@@ -22,15 +22,15 @@ export default  function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased min-h-screen bg-background text-foreground p-4" suppressHydrationWarning>
+      <body className="antialiased min-h-screen  bg-background text-foreground flex flex-col gap-4 " suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <header className="flex justify-between items-center">
-            <Image src="/earnQuestIcon.png" alt="EarnQuest logo" width={100} height={100} />
+          <header className="flex justify-between items-center px-4 py-4 ">
+            <Image src="/earnQuestIcon.png" alt="EarnQuest logo" width={140} height={70} className="h-auto object-contain" />
             <LogoutButton />
           </header>
 
