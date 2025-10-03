@@ -1,30 +1,8 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import GoogleSignInButton from '@/components/GoogleSignInButton' // We'll create this client component below
+import GoogleSignInButton from '@/app/_components/GoogleSignInButton' // We'll create this client component below
 
-export default async function Home() {
-  const supabase = await createClient()
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  console.log("Session:", session)
-
-  // If authenticated, redirect to account/dashboard
-  if (session) {
-    redirect('/offers') // Or '/dashboard' if you create one
-  }
-  
+export default  function Home() {  
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-8">
-        <span className="bg-emerald-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-          EARN
-        </span>
-        <span className="text-emerald-500 font-bold text-xl">QUEST</span>
-      </div>
 
       {/* Main Title */}
       <div className="text-center mb-6">

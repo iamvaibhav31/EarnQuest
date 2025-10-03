@@ -1,8 +1,12 @@
 // Page 3: Explore Offers Grid
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
-export default function ExploreOffersPage() {
+
+export default async function ExploreOffersPage() {
+
+  console.log("Rendering Explore Offers Page");
+
+
   return (
     <>
       {/* Title and Search */}

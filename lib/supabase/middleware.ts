@@ -1,67 +1,33 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
-import { hasEnvVars } from "../utils"; // Adjust path if needed
+import { createServerClient } from '@supabase/ssr'
+import { SupabaseClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  });
+export async function createMiddlewareClient(req: NextRequest) {
+  const res = NextResponse.next({
+    request: req,
+  })
 
-  // If the env vars are not set, skip middleware check.
-  if (!hasEnvVars) {
-    return supabaseResponse;
-  }
-
-  // Create a new Supabase client on each request.
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll();
+          return req.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
-          supabaseResponse = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options),
-          );
+          cookiesToSet.forEach(({ name, value, options }) => {
+            req.cookies.set(name, value)  // For debugging/logging
+            res.cookies.set(name, value, options)
+          })
         },
       },
-    },
-  );
+    }
+  ) as SupabaseClient
 
-  // Get user claims (essential for SSR session sync).
-  const { data } = await supabase.auth.getClaims();
-  const user = data?.claims;
-
-  // Allow access to root (/) and auth callback.
-  // Redirect unauth users to / (landing/login UI).
-  // Protect all other paths.
-  if (
-    !user &&
-    request.nextUrl.pathname !== "/" &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/"; // Redirect to root for login UI
-    return NextResponse.redirect(url);
+  return {
+    supabase,
+    response: res,
   }
-
-  return supabaseResponse;
 }
 
-export const config = {
-  matcher: [
-    /*
-     * Match all paths except internals, static files, and /auth/callback.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    '/((?!_next|api|static|favicon.ico|auth/callback).*)',
-  ],
-};
