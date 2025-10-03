@@ -2,7 +2,6 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
