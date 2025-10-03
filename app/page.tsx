@@ -3,15 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex-1 w-full flex flex-col md:flex-row items-center justify-center gap-4 select-none p-4 relative">
-      <Image
-        src="/Star.png"
-        alt="EarnQuest logo"
-        width={250}
-        height={50}
-        className="h-auto object-contain absolute top-0 left-0 hidden md:block z-[-1]" 
-        // style={{ zIndex: -1 , top:"-10px", left: "10px"}} 
-      />
+    <main className="flex-1 w-full flex flex-col md:flex-row items-center justify-center gap-4 select-none p-4">
       {/* Left section: Hero text + image */}
       <div className='flex-1 h-full flex flex-col items-center justify-center gap-4'>
         <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
