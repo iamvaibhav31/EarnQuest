@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
 import { DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import OfferDialog from "./OfferDialog";
 
 interface Offer {
     id: number;
@@ -18,6 +19,7 @@ export default function OffersGrid() {
     const [offers, setOffers] = useState<Offer[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null); // New: Track selected for dialog
     const supabase = createClient();
 
     useEffect(() => {
@@ -44,6 +46,12 @@ export default function OffersGrid() {
         fetchOffers();
     }, [supabase]);
 
+    const hadleDialogClose = () => {
+        setSelectedOffer(null);
+    };
+    
+
+
     if (loading) {
         return <div className="flex justify-center items-center h-64 text-white">Loading offers...</div>;
     }
@@ -64,9 +72,10 @@ export default function OffersGrid() {
     }
 
     return (
+        <>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {offers.map((offer) => (
-                <Button key={offer.id} className="bg-gray-800 border-gray-700 text-white hover:shadow-lg transition-shadow h-fit max-w-60 max-h-80 rounded-xl p-3 flex flex-col justify-between gap-2">
+                <Button key={offer.id} className="bg-gray-800 border-gray-700 text-white hover:shadow-lg transition-shadow h-fit max-w-60 max-h-80 rounded-xl p-3 flex flex-col justify-between gap-2" onClick={() => setSelectedOffer(offer)} >
                     <div className="w-full flex-1 rounded-xl overflow-hidden ">
                         {offer.image_url && <img src={offer.image_url} alt={`${offer.provider} logo`} className="w-full h-full" />}
                     </div>
@@ -83,5 +92,13 @@ export default function OffersGrid() {
                 </Button>
             ))}
         </div>
+        {selectedOffer && (
+                <OfferDialog
+                    offer={selectedOffer}
+                    isOpen={!!selectedOffer}
+                    onOpenChange={hadleDialogClose}
+                />
+            )}
+        </>
     );
 }
