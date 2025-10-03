@@ -24,10 +24,10 @@ export default function Home() {
           </div>
           <Image
             src="/landingpageoffersgrid.png"
-            alt="EarnQuest logo"
+            alt="Offer grid"
             width={1500}
             height={500}
-            className="w-full h-auto object-contain" // Responsive image scaling
+            className="w-full h-auto object-contain" 
           />
         </div>
       </div>
