@@ -31,7 +31,6 @@ export default function OffersGrid() {
                     .select("*")
                     .order("created_at", { ascending: true });
 
-                console.log("Fetched data:", data);
                 if (fetchError) throw fetchError;
                 setOffers(data || []);
             } catch (err) {
