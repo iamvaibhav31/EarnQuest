@@ -173,7 +173,7 @@ export default function OffersGrid() {
                                 src={offer.image_url}
                                 alt={`${offer.provider} logo`}
                                 fill
-                                sizes="(max-width: 768px:) 1000px, 200px"
+                                sizes="(max-width: 768px:) 100px, 200px"
                                 className="object-cover object-center"
                             />
                         )}
