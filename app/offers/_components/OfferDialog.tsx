@@ -39,7 +39,7 @@ function OfferDialog({ offer, isOpen, onOpenChange }: OfferDialogProps) {
             className="absolute top-2 right-2 h-8 w-8 p-0 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 rounded-xl border-1 border-gray-400"
             onClick={() => onOpenChange(false)}
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 font-bold" />
           </Button>
           <div className="w-24 h-24 rounded-xl overflow-hidden absolute top-1/2 right-1/2  transform translate-x-1/2 -translate-y-1/2 ">
             <img src={offer.image_url} alt={`${offer.provider} logo`} className="w-full h-full" />
