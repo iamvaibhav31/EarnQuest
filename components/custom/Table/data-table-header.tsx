@@ -12,7 +12,7 @@ function DataTableHeader<TData>({ table, children, className, isFilterable, onGl
     return (
         <div role="toolbar" aria-orientation="horizontal" className={cn("flex w-full items-center justify-between  gap-2", className)}>
             {isFilterable && (
-                <div className="flex flex-1 items-center gap-2">
+                <div className="flex items-center gap-2">
                     <Search
                         placeholder="Search..."
                         value={table.getState().globalFilter}

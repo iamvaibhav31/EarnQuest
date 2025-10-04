@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from "@/lib/supabase/client";
-
 import Table from '@/components/custom/Table';
+import Image from 'next/image';
 
 type Report = {
   id: number;
@@ -17,11 +17,29 @@ type Report = {
 
 const columns = [
   { accessorKey: "id", header: "Offer ID" },
-  { accessorKey: "name", header: "Offer Name" },
+  {
+    accessorKey: "name", header: "Offer Name", cell: ({ row }) =>
+      <div className='flex items-center gap-1 '>
+        {row.original.image_url && (
+          <div className="flex-1 min-h-10 max-w-10 rounded-full overflow-hidden relative" data-offer-id={row.original.id}>
+            <Image
+              src={row.original.image_url}
+              alt={`${row.original.provider} logo`}
+              fill
+              sizes="(max-width: 768px:) 100px, 200px"
+              className="object-cover object-center"
+            />
+          </div>
+        )}
+        <div className='flex-1'>
+          <h1 className="text-xl text-white">{row.original.provider}</h1>
+        </div>
+      </div>,
+  },
   { accessorKey: "impressions", header: "Impressions" },
   { accessorKey: "clicks", header: "Clicks" },
   { accessorKey: "ctr", header: "CTR (%)" },
-  { accessorKey: "reward", header: "Reward" },
+  { accessorKey: "reward", header: "Reward" , cell: ({ row }) => <span className='text-green-500'>{row.original.reward}</span>}, 
 ]
 
 
@@ -37,7 +55,6 @@ export default function ReportPage() {
       .from('offer_report')
       .select('*')
       .order('id', { ascending: true })
-      // .range(offset, offset + limit - 1);
 
     if (error) {
       console.error('Error fetching reports:', error);
@@ -77,38 +94,10 @@ export default function ReportPage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-6">Report</h1>
-
-      <div className="bg-card rounded-lg overflow-hidden">
-
-
-        <Table columns={columns} data={reports}/>
-        {/* <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>OFFER ID</TableHead>
-              <TableHead>OFFER NAME</TableHead>
-              <TableHead>IMPRESSIONS</TableHead>
-              <TableHead>CLICKS</TableHead>
-              <TableHead>CTR (%)</TableHead>
-              <TableHead>REWARD</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {reports.map((report) => (
-              <TableRow key={report.id}>
-                <TableCell>{report.id}</TableCell>
-                <TableCell className="font-medium">{report.name}</TableCell>
-                <TableCell>{report.impressions.toLocaleString()}</TableCell>
-                <TableCell>{report.clicks.toLocaleString()}</TableCell>
-                <TableCell>{report.ctr.toFixed(2)}</TableCell>
-                <TableCell className="text-primary">{report.reward}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table> */}
-      </div>
-    </>
+    <div className='flex flex-col gap-2 flex-1 px-10 pt-10'>
+      <h1 className="text-2xl font-bold ">Report</h1>
+      <Table columns={columns} data={reports} classes={{ toolbar: "flex-row-reverse justify-between item-center" }} NoDataInfo={{ label: "No such Offer found" }} />
+    </div>
+  
   );
 }

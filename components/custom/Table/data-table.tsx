@@ -1,16 +1,16 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect,  useState } from "react"
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
 import { Table as DataTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Checkbox } from "@/components/ui/checkbox" // Add this import for Checkbox component
+import { Checkbox } from "@/components/ui/checkbox" 
 import DataTableHeader from "./data-table-header"
 import { cn } from "@/lib/utils"
-// import NoData from "../NoData"
 import { DataTableProps } from "./data.table.type"
 import DataTablePagination from "./data-table-pagination"
 import { ArrowDown, ArrowDownUp, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import NoData from "../NoData"
 
 const EmptyArray: any[] = []
 const EmptyObject: Record<string, any> = {}
@@ -110,7 +110,7 @@ function Table<TData, TValue>({
     }, [isPaginated, isFilterable, children, table.getRowModel().rows?.length])
 
     return (
-        <div className={cn("w-full flex flex-col gap-2 border border-primary-border bg-secondary-background rounded p-2", getTableWapperSpecificClassName(), className)}>
+        <div className={cn("w-full flex flex-col gap-4  bg-gray-950 shadow rounded-xl p-2", getTableWapperSpecificClassName(), className)}>
             {(typeof children !== "undefined" || isFilterable) && (
                 <DataTableHeader table={table} onGlobalFilterChange={setGlobalFilter} isFilterable={isFilterable} className={classes?.toolbar}>
                     {children}
@@ -120,17 +120,17 @@ function Table<TData, TValue>({
             {table.getRowModel().rows?.length ? (
                 <div
                     className={cn(
-                        "bg-primary-background text-secondary-foreground overflow-hidden flex flex-col gap-2 items-center justify-between rounded  h-full",
+                        "overflow-hidden flex flex-col gap-2 items-center justify-between rounded  h-full",
                         classes?.root
                     )}
                 >
                     <DataTable className={classes?.table?.root}>
-                        <TableHeader className={cn("sticky top-0 bg-primary-background h-full", classes?.table?.header?.root)}>
+                        <TableHeader className={cn("sticky top-0 border-b-primary-border  h-full", classes?.table?.header?.root)}>
                             {table.getHeaderGroups().map(headerGroup => {
                                 return (
-                                    <TableRow key={headerGroup.id} className={cn("border-b-primary-border", classes?.table?.header?.row)}>
+                                    <TableRow key={headerGroup.id} className={cn("", classes?.table?.header?.row)}>
                                         {isCheckbox && (
-                                            <TableHead className={cn("text-secondary-foreground cursor-pointer select-none w-5", classes?.table?.header?.head)}>
+                                            <TableHead className={cn(" cursor-pointer select-none w-5", classes?.table?.header?.head)}>
                                                 <Checkbox
                                                     checked={table.getIsAllRowsSelected()}
                                                     indeterminate={table.getIsSomeRowsSelected()}
@@ -146,7 +146,7 @@ function Table<TData, TValue>({
                                                 <TableHead
                                                     key={header.id}
                                                     className={cn(
-                                                        "text-secondary-foreground cursor-pointer select-none ",
+                                                        " cursor-pointer select-none ",
                                                         header.column.columnDef?.className ? header.column.columnDef?.className : "max-w-10",
                                                         classes?.table?.header?.head
                                                     )}
@@ -159,7 +159,7 @@ function Table<TData, TValue>({
                                                         {isShortable && header.column.getCanSort() && !header.isPlaceholder && (
                                                             <Button
                                                                 variant="ghost"
-                                                                className="p-0 bg-transparent hover:bg-transparent hover:text-secondary-foreground"
+                                                                className="p-0 bg-transparent hover:bg-transparent hover:"
                                                                 onClick={() => header.column.toggleSorting()}
                                                             >
                                                                 {header.column.getIsSorted() ? (
@@ -182,7 +182,7 @@ function Table<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    className={cn("cursor-pointer text-secondary-foreground border-b-primary-border ", classes?.table?.body?.row)}
+                                    className={cn("cursor-pointer border-0", classes?.table?.body?.row)}
                                     onClick={() => onRowClick(row?.original || EmptyObject)}
                                 >
                                     {isCheckbox && (
@@ -210,10 +210,10 @@ function Table<TData, TValue>({
             ) : NoDataInfo ? (
                 <NoData
                     {...NoDataInfo}
-                    className="bg-primary-background text-secondary-foreground overflow-hidden flex flex-col gap-2 items-center justify-center rounded  h-full w-full"
+                    className=" overflow-hidden flex flex-col gap-2 items-center justify-center rounded h-full w-full"
                 />
             ) : (
-                <p className="bg-primary-background text-secondary-foreground overflow-hidden flex flex-col gap-2 items-center justify-center rounded  h-full w-full">
+                <p className="  overflow-hidden flex flex-col gap-2 items-center justify-center rounded  h-full w-full">
                     No results found
                 </p>
             )}
