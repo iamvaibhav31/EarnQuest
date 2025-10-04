@@ -38,5 +38,10 @@ export async function updateUserRole(userId: string, newRole: string) {
     throw new Error('Failed to update role')
   }
 
-  redirect('/users')
+  if(newRole === 'ADMIN') {
+    console.log(`User ${userId} promoted to ADMIN`)
+  } else {
+    console.log(`User ${userId} demoted to USER`)
+    redirect('/')
+  }
 }
