@@ -4,7 +4,6 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="flex-1 w-full flex flex-col md:flex-row items-center justify-center gap-4 select-none p-4">
-      {/* Left section: Hero text + image */}
       <div className='flex-1 h-full flex flex-col items-center justify-center gap-4'>
         <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
             Get Paid for Testing Apps, <br/>  Games & Surveys
