@@ -6,8 +6,8 @@ import "./globals.css";
 import LogoutButton from "./_components/logout-button";
 
 const vercelUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+  ? `https://earnquest.onrender.com/`
+  : "https://earnquest.onrender.com/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(vercelUrl),
