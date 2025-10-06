@@ -8,7 +8,7 @@ type TagListProps = {
     values: string[]
     optionsMap: Record<string, { label: string; value: string }>
     tagLimit: number
-    classes: any
+    classes: Record<string, string>
     renderTags?: (option: { label: string; value: string } | undefined, removeValue: (val: string) => void) => React.ReactNode
     removeValue: (val: string) => void
 }

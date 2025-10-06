@@ -3,6 +3,7 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface Offer {
   id: number;
@@ -41,9 +42,18 @@ function OfferDialog({ offer, isOpen, onOpenChange }: OfferDialogProps) {
           >
             <X className="h-4 w-4 font-bold" />
           </Button>
-          <div className="w-24 h-24 rounded-xl overflow-hidden absolute top-1/2 right-1/2  transform translate-x-1/2 -translate-y-1/2 ">
-            <img src={offer.image_url} alt={`${offer.provider} logo`} className="w-full h-full" />
-          </div>
+
+          {offer.image_url && (
+            <div className="w-24 h-24 rounded-xl overflow-hidden absolute top-1/2 right-1/2  transform translate-x-1/2 -translate-y-1/2 " data-offer-id={offer.id}>
+              <Image
+                src={offer.image_url}
+                alt={`${offer.provider} logo`}
+                fill
+                sizes="(max-width: 768px:) 100px, 200px"
+                className="w-full h-full"
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col flex-1 p-4 gap-4">

@@ -18,6 +18,7 @@ function DataTableHeader<TData>({ table, children, className, isFilterable, onGl
                         value={table.getState().globalFilter}
                         onChange={event => handleSearch(event.target.value)}
                         className="h-8 w-40 lg:w-64 "
+                        adornmentIconPostion="end"
                         classes={{
                             input: "rounded bg-primary-background py-0 shadow-none",
                         }}

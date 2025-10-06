@@ -1,0 +1,45 @@
+services:
+  typescript-app:
+    build:
+      context: .
+    container_name: typescript-app
+    env_file: ./.env.local
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    # env_file: ./.env.local  # Uncomment if .env.local file exists
+    networks:
+      - appnet
+
+  postgres:
+    image: postgres:latest
+    container_name: typescript-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: supabase
+      POSTGRES_USER: supabase
+      POSTGRES_PASSWORD: supabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - appnet
+
+# Shared network for inter-service communication
+networks:
+  appnet:
+    driver: bridge
+
+# Persistent volume for PostgreSQL data
+volumes:
+  pgdata:
+    driver: local

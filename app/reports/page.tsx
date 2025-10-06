@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { useEffect, useState } from 'react';
 import { createClient } from "@/lib/supabase/client";
 import Table from '@/components/custom/Table';
 import Image from 'next/image';
+import { ColumnDef, Row } from '@tanstack/react-table';
 
 type Report = {
   id: number;
@@ -12,13 +14,14 @@ type Report = {
   clicks: number;
   ctr: number;
   reward: string;
+  image_url?: string;
+  provider: string;
 };
 
-
-const columns = [
+const columns: ColumnDef<Report>[] = [
   { accessorKey: "id", header: "Offer ID" },
   {
-    accessorKey: "name", header: "Offer Name", cell: ({ row }) =>
+    accessorKey: "name", header: "Offer Name", cell: ({ row }: { row: Row<Report> }) =>
       <div className='flex items-center gap-1 '>
         {row.original.image_url && (
           <div className="flex-1 min-h-10 max-w-10 rounded-full overflow-hidden relative" data-offer-id={row.original.id}>
@@ -39,7 +42,11 @@ const columns = [
   { accessorKey: "impressions", header: "Impressions" },
   { accessorKey: "clicks", header: "Clicks" },
   { accessorKey: "ctr", header: "CTR (%)" },
-  { accessorKey: "reward", header: "Reward" , cell: ({ row }) => <span className='text-green-500'>{row.original.reward}</span>}, 
+  { 
+    accessorKey: "reward", 
+    header: "Reward", 
+    cell: ({ row }: { row: Row<Report> }) => <span className='text-green-500'>{row.original.reward}</span> 
+  },
 ]
 
 
@@ -96,7 +103,7 @@ export default function ReportPage() {
   return (
     <div className='flex flex-col gap-2 flex-1 px-10 pt-10'>
       <h1 className="text-2xl font-bold ">Report</h1>
-      <Table columns={columns} data={reports} classes={{ toolbar: "flex-row-reverse justify-between item-center" }} NoDataInfo={{ label: "No such Offer found" }} />
+      <Table columns={columns} data={reports} classes={{ toolbar: "flex-row-reverse justify-between item-center" }}  />
     </div>
   
   );

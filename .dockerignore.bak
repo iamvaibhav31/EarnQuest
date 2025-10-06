@@ -1,0 +1,72 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Next.js build output
+.next/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Test and debug artifacts
+test/
+tests/
+debug/
+*.log
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+.svn/
+.hg/
+
+# macOS system files
+.DS_Store
+
+# Environment and secrets
+.env*
+*.env
+*.local
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# Documentation
+README*
+*.md
+docs/
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# Temporary files and folders
+tmp/
+temp/
+*.tmp
+
+# Project-specific
+components/.DS_Store
+components/custom/.DS_Store
+
+# Public assets (if not needed in build)
+# public/
+
+# Exclude lock files from ignore (they should be included)
+!package-lock.json
+!yarn.lock
+!pnpm-lock.yaml
+
+# Exclude only what is necessary, keep source files for build

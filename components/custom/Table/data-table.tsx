@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useCallback, useEffect,  useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
 import { Table as DataTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox" 
@@ -109,6 +112,9 @@ function Table<TData, TValue>({
         return "p-2"
     }, [isPaginated, isFilterable, children, table.getRowModel().rows?.length])
 
+    const isIndeterminate = table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+    const headerChecked = table.getIsAllRowsSelected() ? true : isIndeterminate ? "indeterminate" : false
+
     return (
         <div className={cn("w-full flex flex-col gap-4  bg-gray-950 shadow rounded-xl p-2", getTableWapperSpecificClassName(), className)}>
             {(typeof children !== "undefined" || isFilterable) && (
@@ -132,12 +138,11 @@ function Table<TData, TValue>({
                                         {isCheckbox && (
                                             <TableHead className={cn(" cursor-pointer select-none w-5", classes?.table?.header?.head)}>
                                                 <Checkbox
-                                                    checked={table.getIsAllRowsSelected()}
-                                                    indeterminate={table.getIsSomeRowsSelected()}
-                                                    onChange={(evt) => {
-                                                        evt.stopPropagation() // Prevent row click if header is clickable
-                                                        table.toggleAllRowsSelected(evt.target.checked)
+                                                    checked={headerChecked}
+                                                    onCheckedChange={(checked) => {
+                                                        table.toggleAllRowsSelected(checked === true)
                                                     }}
+                                                    onClick={(e) => e.stopPropagation()}
                                                 />
                                             </TableHead>
                                         )}
@@ -146,8 +151,7 @@ function Table<TData, TValue>({
                                                 <TableHead
                                                     key={header.id}
                                                     className={cn(
-                                                        " cursor-pointer select-none ",
-                                                        header.column.columnDef?.className ? header.column.columnDef?.className : "max-w-10",
+                                                        " cursor-pointer select-none max-w-10",
                                                         classes?.table?.header?.head
                                                     )}
                                                 >
@@ -186,13 +190,13 @@ function Table<TData, TValue>({
                                     onClick={() => onRowClick(row?.original || EmptyObject)}
                                 >
                                     {isCheckbox && (
-                                        <TableCell className={cn("py-2 w-5", classes?.table?.body?.cell)}> {/* Fixed 'spy-2' to 'py-2' */}
+                                        <TableCell className={cn("py-2 w-5", classes?.table?.body?.cell)}>
                                             <Checkbox 
                                                 checked={row.getIsSelected()} 
-                                                onChange={(evt) => {
-                                                    evt.stopPropagation() // Prevent bubbling to row onClick
-                                                    row.toggleSelected(evt.target.checked)
-                                                }} 
+                                                onCheckedChange={(checked) => {
+                                                    row.toggleSelected(checked === true)
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
                                             />
                                         </TableCell>
                                     )}

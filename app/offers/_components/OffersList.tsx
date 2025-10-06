@@ -167,17 +167,17 @@ export default function OffersGrid() {
                         onClick={() => handleCardClick(offer)}
                         className="bg-gray-800 border-gray-700 text-white hover:shadow-lg transition-shadow h-fit max-w-60 max-h-80 rounded-xl p-3 flex flex-col justify-between gap-2"
                     >
-                        <div className="w-full flex-1 min-h-44 rounded-xl overflow-hidden relative" data-offer-id={offer.id}>                            
-                            {offer.image_url && (
-                            <Image
-                                src={offer.image_url}
-                                alt={`${offer.provider} logo`}
-                                fill
-                                sizes="(max-width: 768px:) 100px, 200px"
-                                className="object-cover object-center"
-                            />
+                        {offer.image_url && (
+                            <div className="w-full flex-1 min-h-44 rounded-xl overflow-hidden relative" data-offer-id={offer.id}>
+                                <Image
+                                    src={offer.image_url}
+                                    alt={`${offer.provider} logo`}
+                                    fill
+                                    sizes="(max-width: 768px:) 100px, 200px"
+                                    className="object-cover object-center"
+                                />
+                            </div>
                         )}
-                        </div>
                         <div className="w-full flex-1 flex flex-col justify-between gap-1 text-start">
                             <h1 className="text-xl font-bold text-white">{offer.provider}</h1>
                             <span className="text-sm text-gray-300 line-clamp-3 truncate">

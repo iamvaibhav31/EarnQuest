@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ColumnDef, PaginationState, Table, RowData } from "@tanstack/react-table"
 import { NoDataProps } from "../NoData"
 

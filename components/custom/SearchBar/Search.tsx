@@ -7,6 +7,7 @@ const Search: React.FC<ISearchProps> = ({ adornmentIconPostion = "start", ...pro
     return (
         <TextField
             {...props}
+            
             adornment={{
                 className: "select-none",
                 position: adornmentIconPostion,

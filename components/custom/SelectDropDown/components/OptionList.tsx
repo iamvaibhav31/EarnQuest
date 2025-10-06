@@ -8,7 +8,7 @@ type OptionListProps = {
     value: string
     selectedValues: string[]
     isMultiple: boolean
-    classes: any
+    classes: Record<string, string>
     handleSelect: (val: string) => void
 }
 
@@ -34,12 +34,14 @@ const OptionList: React.FC<OptionListProps> = ({ options, value, selectedValues,
                             onClick={() => handleSelect(opt.value)}
                             onKeyDown={e => {
                                 if (e.key === "Enter" || e.key === " ") {
-                                    e.preventDefault()
+                                    e.preventDefault();
                                     handleSelect(opt.value)
                                 } else if (e.key === "ArrowDown") {
-                                    e.preventDefault()(e.currentTarget.nextElementSibling as HTMLElement)?.focus()
+                                    e.preventDefault();
+                                    (e.currentTarget.nextElementSibling as HTMLElement)?.focus()
                                 } else if (e.key === "ArrowUp") {
-                                    e.preventDefault()(e.currentTarget.previousElementSibling as HTMLElement)?.focus()
+                                    e.preventDefault();
+                                    (e.currentTarget.previousElementSibling as HTMLElement)?.focus()
                                 }
                             }}
                         >

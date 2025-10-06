@@ -1,0 +1,71 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build outputs
+dist/
+build/
+out/
+
+# Test and debug artifacts
+test/
+tests/
+coverage/
+*.log
+*.tmp
+tmp/
+temp/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+.svn/
+.hg/
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+.env.local
+
+# macOS system files
+.DS_Store
+
+# Project-specific and documentation
+README*
+*.md
+docs/
+README.md.bak
+
+# Docker and Compose files
+Dockerfile*
+docker-compose*
+compose.yaml
+
+# Local and config files
+.local/
+*.local
+config.local.*
+*.local.yml
+
+# Miscellaneous
+*.mjs
+
+# Exclude public assets (if needed, comment out if public/ should be included)
+# public/
+
+# Exclude backup files
+*~
+
+# Exclude any other unwanted files or folders as needed
