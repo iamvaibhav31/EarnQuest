@@ -6,8 +6,8 @@ import "./globals.css";
 import LogoutButton from "./_components/logout-button";
 
 const vercelUrl = process.env.VERCEL_URL
-  ? `https://earnquest.onrender.com/`
-  : "https://earnquest.onrender.com/";
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(vercelUrl),
@@ -40,7 +40,7 @@ export default function RootLayout({
             <Image src="/earnQuestIcon.png" alt="EarnQuest logo" width={140} height={70} className="h-auto object-contain" />
             <LogoutButton />
           </header>
-
+          <></>
           {children}
           {/* <Image
             src="/Star.png"
