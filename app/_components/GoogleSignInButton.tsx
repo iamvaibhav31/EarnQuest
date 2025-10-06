@@ -11,7 +11,7 @@ export default function GoogleSignInButton() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `https://hehslaqtdjjdnnemydcq.supabase.co/auth/v1/callback`, // Point to your callback route
+        redirectTo: `https://earnquest.onrender.com/auth/v1/callback`, // Point to your callback route
       },
     })
 
