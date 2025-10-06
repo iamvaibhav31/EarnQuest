@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 
   const authenticatedPaths = ["/offers"]  // Auth required, no role check
   const authenticatedProtectedAdminRoutes = ["/users", "/reports"]  // Auth + ADMIN required (assuming /user -> /users)
-  const publicRoutes = ["/", "/auth/callback"]  
+  const publicRoutes = ["/", "/auth/v1/callback"]  
 
   const isAuthenticatedPath = authenticatedPaths.some((route) =>
     request.nextUrl.pathname.startsWith(route)
